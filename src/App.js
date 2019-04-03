@@ -3,9 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { NavLink, Route, Switch } from 'react-router-dom'; 
 import PostList from './PostList';
 import NewPostForm from './NewPostForm';
-
 import './App.css';
-import Home from './Home';
+
 
 class App extends Component {
   constructor(props){
@@ -18,12 +17,12 @@ class App extends Component {
       <nav>
         <h1>Microblog</h1>
         <p>Get in the Rithm of blogging!</p>
-        <NavLink to='/' >Blog</NavLink>
+        <NavLink to='/'>Blog</NavLink>
         <NavLink to='/new' >Add a new post</NavLink>
       </nav>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' render={ () => <PostList />} />
+            <Route exact path='/' render={ () => <PostList posts={this.state.posts}/>} />
             <Route exact path='/new' render={ () => <NewPostForm />} />
           </Switch>
         </BrowserRouter>
