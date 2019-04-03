@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Post extends Component {
-    
     render() {
-        
-        let post = this.props.posts.find( p => (p.id === this.props.match.params.id))
-        const {title, description, body, id } = post;
+        const {title, description, body, id } = this.props;
         return (
             <div>
-                <h3>{title}</h3>
+                <Link to={`/${id}`}><h3>{title}</h3></Link>
                 <p>{description}</p>
                 <p>{body}</p>
             </div>

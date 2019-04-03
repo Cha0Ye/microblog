@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import Post from './Post';
+import PostCard from './PostCard';
 
 class PostList extends Component {
     render() {
         return (
             <div>
-                {this.props.posts.map(p => <Post 
+                {this.props.posts.map(p => <PostCard 
                                                 title={p.title}
                                                 description={p.description}
                                                 body={p.body}
+                                                key={p.id}
+                                                id={p.id}
                                          />)}
             </div>
         );
