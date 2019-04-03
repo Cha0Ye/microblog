@@ -45,6 +45,7 @@ class App extends Component {
   }
 
   render() {
+    
     return (
       <div className="App">
         <nav>
@@ -71,8 +72,9 @@ class App extends Component {
           <Route
             exact
             path="/:id"
-            render={rtProps => <Post {...rtProps} 
-                                      posts={this.state.posts} 
+            render={rtProps => <Post 
+                                      post={this.state.posts.find( p => (p.id === rtProps.match.params.id))}
+                                      {...rtProps} 
                                       deletePost={this.deletePost}
                                       editPost={this.editPost}
                                       />}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Comment from './Comments';
+
 
 class Post extends Component {
     render() {
@@ -8,7 +10,6 @@ class Post extends Component {
             <div>
                 <Link to={`/${id}`}><h3>{title}</h3></Link>
                 <p>{description}</p>
-                <p>{body}</p>
             </div>
         );
     }

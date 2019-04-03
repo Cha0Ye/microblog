@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EditPostForm from './EditPostForm';
+import Comments from './Comments';
 
 class Post extends Component {
 
@@ -35,11 +36,8 @@ class Post extends Component {
     render() {
 
         let display;
-        debugger
-        let post = this.props.posts.find( p => (p.id === this.props.match.params.id))
-        console.log("THISS IS THE PROPS", this.props)
-        console.log("THISS IS THE POST", post)
-        const {title, description, body, id } = post;
+        
+        const {title, description, body, id } = this.props.post;
     
         if (this.state.isEditing === false) {
 
@@ -56,11 +54,11 @@ class Post extends Component {
             display = (<EditPostForm 
                             setIsEditingFalse={this.handleEditCancel}
                             triggerUpdatePost={this.props.editPost}
-                            postData={post}
+                            postData={ this.props.post }
                             />)
         }
 
-        
+        display = display + <Comments />;
         return display;
     }
 }
