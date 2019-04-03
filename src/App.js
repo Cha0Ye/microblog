@@ -13,9 +13,28 @@ class App extends Component {
     this.state = { posts: [] };
 
     this.addPost = this.addPost.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
-  deletePost() {}
+  deletePost(id) {
+    const posts = this.state.posts.filter(p => id !== p.id);
+    this.setState({
+        posts: posts
+    });
+  }
+
+  editPost(id, newPost) {
+    const idx = this.state.posts.findIndex(p => p.id === id);
+
+    newPost.id = id;
+
+    const newPosts = [...this.state.posts.slice(0,idx), newPost, ...this.state.posts.slice(idx+1)];
+
+    this.setState({
+      posts: newPosts
+   });
+  }
 
   addPost(post) {
     const id = uuid();
@@ -52,7 +71,11 @@ class App extends Component {
           <Route
             exact
             path="/:id"
-            render={rtProps => <Post {...rtProps} posts={this.state.posts} />}
+            render={rtProps => <Post {...rtProps} 
+                                      posts={this.state.posts} 
+                                      deletePost={this.deletePost}
+                                      editPost={this.editPost}
+                                      />}
           />
         </Switch>
       </div>
