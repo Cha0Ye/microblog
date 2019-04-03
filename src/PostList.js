@@ -5,7 +5,11 @@ class PostList extends Component {
     render() {
         return (
             <div>
-                <Post />
+                {this.props.posts.map(p => <Post 
+                                                title={p.title}
+                                                description={p.description}
+                                                body={p.body}
+                                         />)}
             </div>
         );
     }

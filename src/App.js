@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import { NavLink, Route, Switch } from 'react-router-dom'; 
 import PostList from './PostList';
 import NewPostForm from './NewPostForm';
@@ -32,7 +32,6 @@ class App extends Component {
         <NavLink to='/'>Blog</NavLink>
         <NavLink to='/new' >Add a new post</NavLink>
       </nav>
-        <BrowserRouter>
           <Switch>
             <Route exact path='/' render={(rtProps) => <PostList 
                                                       {...rtProps}
@@ -40,10 +39,9 @@ class App extends Component {
                                                       />} />
             <Route exact path='/new' render={(rtProps) => <NewPostForm 
                                                       {...rtProps}
-                                                        triggerAddPosts={this.addPost}
+                                                        triggerAddPost={this.addPost}
                                                         />} />
           </Switch>
-        </BrowserRouter>
       </div>
     );
   }

@@ -19,7 +19,7 @@ class NewPostForm extends Component {
     handleCancel() {
         this.props.history.push('/');
     }
-
+    
     handleSubmit(evt) {
         evt.preventDefault();
         this.props.triggerAddPost(this.state);
@@ -28,6 +28,7 @@ class NewPostForm extends Component {
             description: "",
             body: ""
         });
+        this.props.history.push('/');
     }
 
     handleChange(evt){
@@ -40,14 +41,27 @@ class NewPostForm extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="title">Title:</label>
-                <input id="title" name="title" value={this.state.title}/>
-
+                <input id="title" 
+                       name="title" 
+                       value={this.state.title}
+                       onChange={this.handleChange}
+                       />
+                <br />
                 <label htmlFor="description">Description:</label>
-                <input id="description" name="description" value={this.state.description} />
-
+                <input id="description" 
+                       name="description" 
+                       value={this.state.description}
+                       onChange={this.handleChange}
+                       />
+                <br />
                 <label htmlFor="body">Body:</label>
-                <input id="body" type="textarea" name="body" value={this.state.body} />
-
+                <input id="body" 
+                       type="textarea" 
+                       name="body" 
+                       value={this.state.body}
+                       onChange={this.handleChange}
+                       />
+                <br />
                 <button type="submit">Save</button>
                 <button onClick={this.handleCancel}>Cancel</button>
             </form>
