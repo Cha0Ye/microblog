@@ -10,7 +10,19 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = { posts: [] };
+
+    this.addPost = this.addPost.bind(this);
   }
+
+  addPost(post) {
+    this.setState(st => (
+        {
+          posts: [...st.posts, post]
+        }
+    ));
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -22,8 +34,14 @@ class App extends Component {
       </nav>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' render={ () => <PostList posts={this.state.posts}/>} />
-            <Route exact path='/new' render={ () => <NewPostForm />} />
+            <Route exact path='/' render={(rtProps) => <PostList 
+                                                      {...rtProps}
+                                                      posts={this.state.posts}
+                                                      />} />
+            <Route exact path='/new' render={(rtProps) => <NewPostForm 
+                                                      {...rtProps}
+                                                        triggerAddPosts={this.addPost}
+                                                        />} />
           </Switch>
         </BrowserRouter>
       </div>
