@@ -14,7 +14,7 @@ class NewCommentForm extends Component {
         evt.preventDefault();
         this.props.triggerAddComment(this.props.postId, this.state);
         this.setState({ 
-                    comment: '' 
+            comment: '' 
         });
     }
 

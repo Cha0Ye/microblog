@@ -31,7 +31,7 @@ class Comments extends Component {
     return <div>
              {comments}
              <NewCommentForm 
-                  triggerAddComment={this.addComment}
+                  triggerAddComment={this.props.triggerAddComment}
                   postId={this.props.postId}
                   />
             </div>;

@@ -37,7 +37,7 @@ class Post extends Component {
 
         let display;
         
-        const {title, description, body, id } = this.props.post;
+        const {title, description, body, id, comments } = this.props.post;
     
         if (this.state.isEditing === false) {
 
@@ -48,7 +48,7 @@ class Post extends Component {
                             <p>{body}</p>
                             <button onClick={this.handleEditShow}>Edit</button>
                             <button onClick={this.handleDelete}>Delete</button>
-                            <Comments postId={id}/>
+                            <Comments postId={id} comments={comments} triggerAddComment={this.props.triggerAddComment} />
                         </div>
             )
         } else {
@@ -58,7 +58,7 @@ class Post extends Component {
                                 triggerUpdatePost={this.props.editPost}
                                 postData={ this.props.post }
                                 />
-                            <Comments postId={id}/>
+                            <Comments postId={id} comments={comments} triggerAddComment={this.props.triggerAddComment} />
                         </>)
         }
 

@@ -40,6 +40,7 @@ class App extends Component {
   addPost(post) {
     const id = uuid();
     post.id = id;
+    post.comments = [];
     this.setState(st => ({
       posts: [...st.posts, post]
     }));
@@ -50,25 +51,25 @@ class App extends Component {
     newComment.id = commentID;
 
     //find the post
-    const currentPost = this.state.posts.find(p => p.id === postId)
+    //const currentPost = this.state.posts.find(p => p.id === postId)
 
     //add the new comment in the post
     //FIXME: incase undefined is an issue, we need to add anempty array here
-    currentPost.comments = [...currentPost.comments, newComment]
+    //currentPost.comments = [...currentPost.comments, newComment]
 
     //find the index of the post
-    const currentPostIdx = this.state.posts.findIndex(p => p.id === postId)
+    //const currentPostIdx = this.state.posts.findIndex(p => p.id === postId)
 
     //create new post
-    const newPosts = [...this.state.posts.slice(0,currentPostIdx), currentPost, ...this.state.posts.slice(currentPostIdx+1)]
+    //const newPosts = [...this.state.posts.slice(0,currentPostIdx), currentPost, ...this.state.posts.slice(currentPostIdx+1)]
 
     //MAP over and see if it is a match, then return p 
-
+    let newPosts = this.state.posts.map(p => (p.id === postId)? p.comments = [...p.comments, newComment] : p );
     this.setState(st => (
       {
           posts: newPosts
       }
-    ))
+    ));
 
   }
 
@@ -105,6 +106,7 @@ class App extends Component {
                                       {...rtProps} 
                                       deletePost={this.deletePost}
                                       editPost={this.editPost}
+                                      triggerAddComment={this.addComment}
                                       />}
           />
         </Switch>
