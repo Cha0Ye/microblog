@@ -40,7 +40,7 @@ class Post extends Component {
         const {title, description, body, id, comments } = this.props.post;
     
         if (this.state.isEditing === false) {
-
+                
             display = (
                         <div>
                             <h3>{title}</h3>

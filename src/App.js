@@ -47,6 +47,9 @@ class App extends Component {
   }
 
   addComment(postId, newComment) {
+    console.log('new comment is', newComment);
+    console.log('ID is ', postId);
+
     const commentID = uuid();
     newComment.id = commentID;
 
@@ -64,17 +67,19 @@ class App extends Component {
     //const newPosts = [...this.state.posts.slice(0,currentPostIdx), currentPost, ...this.state.posts.slice(currentPostIdx+1)]
 
     //MAP over and see if it is a match, then return p 
-    let newPosts = this.state.posts.map(p => (p.id === postId)? p.comments = [...p.comments, newComment] : p );
-    this.setState(st => (
-      {
+    let newPosts = this.state.posts.map(p => (p.id === postId)
+      ? 
+        {...p, comments: [...p.comments, newComment] }
+      : 
+      p );
+    this.setState({
           posts: newPosts
-      }
-    ));
+    });
 
   }
 
   render() {
-    
+    console.log('new state is ', this.state)
     return (
       <div className="App">
         <nav>

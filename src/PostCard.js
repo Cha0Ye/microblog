@@ -10,6 +10,7 @@ class Post extends Component {
             <div>
                 <Link to={`/${id}`}><h3>{title}</h3></Link>
                 <p>{description}</p>
+                
             </div>
         );
     }

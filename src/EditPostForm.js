@@ -39,6 +39,7 @@ class EditPostForm extends Component {
 
     render() {
         return (
+            
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="title">Title:</label>
                 <input id="title" 
@@ -65,6 +66,7 @@ class EditPostForm extends Component {
                 <button type="submit">Save</button>
                 <button onClick={this.handleCancel}>Cancel</button>
             </form>
+            
         );
     }
 }
