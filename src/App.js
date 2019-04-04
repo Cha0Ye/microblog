@@ -66,9 +66,12 @@ class App extends Component {
   }
 
   deleteComment(postId, commentId){
-    console.log('in deleteComment', postId, commentId);
-    const updatedPosts = this.state.posts.map( post => post.id === postId ? post.comments.filter(c => c.id !==commentId): post ) 
+    
+    const updatedPosts = this.state.posts.map(
+                    post => post.id === postId ? {...post, comments: post.comments.filter(c => c.id !== commentId)} : post) 
+
     this.setState({ posts: updatedPosts });
+    
   }
 
   render() {
@@ -100,7 +103,7 @@ class App extends Component {
             exact
             path="/:id"
             render={rtProps => <Post 
-                                      post={this.state.posts.find( p => (p.id === rtProps.match.params.id))}
+                                      post={this.state.posts.find(p =>(p.id === rtProps.match.params.id))}
                                       {...rtProps} 
                                       deletePost={this.deletePost}
                                       editPost={this.editPost}
