@@ -7,7 +7,6 @@ import { addNewPost,
          updatePost,
          addNewComment,
          deleteComment,
-         updateComment,
          getAllPosts } from './actions';
 
 class Post extends Component {
@@ -43,12 +42,17 @@ class Post extends Component {
 
     render() {
         let display;
-        const {title, description, body, id, comments } = this.props.post;
+        const {title, 
+               description, 
+               body, 
+               id, 
+               comments } = this.props.post;
         const commentComponent = (
-            <Comments postId={id} 
-                comments={comments} 
-                triggerAddComment={this.props.triggerAddComment} 
-                triggerDeleteComment={this.props.triggerDeleteComment}/> 
+            <Comments 
+              postId={id} 
+              comments={comments} 
+              triggerAddComment={this.props.addNewComment} 
+              triggerDeleteComment={this.props.deleteComment}/> 
             )
 
         if (this.state.isEditing === false) {
@@ -66,10 +70,8 @@ class Post extends Component {
             (<>
                 <EditPostForm 
                     setIsEditingFalse={this.handleEditCancel}
-                    triggerUpdatePost={this.props.editPost}
+                    triggerUpdatePost={this.props.updatePost}
                     postData={ this.props.post }
-                    comments={comments}
-                    rtProps={this.props.rtProps}
                     />
                 {commentComponent}
              </>)
@@ -79,8 +81,9 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return { posts: state.posts };
+function mapStateToProps(state, ownProps){
+    const post = state.posts.find(p => ownProps.id == p.id)
+    return { post };
 }
 
 const mapDispatchToProps = {
@@ -89,8 +92,6 @@ const mapDispatchToProps = {
     updatePost,
     addNewComment,
     deleteComment,
-    updateComment,
-    getAllPosts
 };
 
 

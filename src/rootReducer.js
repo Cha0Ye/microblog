@@ -1,53 +1,79 @@
 import uuid from 'uuid/v4';
 
-import { ADD_NEW_POST,
-         DELETE_POST,
-         UPDATE_POST,
-         ADD_NEW_COMMENT,
-         DELETE_COMMENT,
-         UPDATE_COMMENT,
-         GET_ALL_POSTS } from './actionTypes';
+import {
+    ADD_NEW_POST,
+    DELETE_POST,
+    UPDATE_POST,
+    ADD_NEW_COMMENT,
+    DELETE_COMMENT,
+} from './actionTypes';
 
-
-
-const INITIAL_STATE = { 
-    posts: [],
+const INITIAL_STATE = {
+    posts: [
+        {
+            id: 17, 
+            title: "Yo",
+            description: "d", 
+            body: "bo", 
+            comments: []
+        }
+    ],
 };
 
+export default function rootReducer(state = INITIAL_STATE, action) {
 
-export function rootReducer(state = INITIAL_STATE , action){
-    if(action.type === ADD_NEW_POST){
-        return { posts: [...state.posts, action.payload ]};
+    if (action.type === ADD_NEW_POST) {
+        let newPost = action.payload;
+        newPost.id = uuid();
+        return { posts: [...state.posts, newPost] };
     }
-    else if(action.type === DELETE_POST){
-        const posts = state.posts.filter( p => p.id === action.payload.id )
+
+    else if (action.type === DELETE_POST) {
+        const posts = state.posts.filter(p => p.id === action.payload.id)
         return { posts };
     }
-    // payload: { postID, updatePost }
-    else if(action.type === UPDATE_POST){
-        const updatedPosts = state.posts.map( p => 
-            p.id === action.payload.postID
-            ? 
-            p = action.payload.updatePost
-            : 
-            p );
-        return {posts: updatedPosts};
+
+    else if (action.type === UPDATE_POST) {
+        // payload: { postID, updatePost }
+        const updatedPosts = state.posts.map(
+            p => p.id === action.payload.postID
+                ? p = action.payload.updatePost
+                : p
+        );
+        return { posts: updatedPosts };
     }
-    else if(action.type === ADD_NEW_COMMENT){
-        return {};
+
+    else if (action.type === ADD_NEW_COMMENT) {
+        let newComment = action.payload.comment
+        newComment.id = uuid();
+        // payload: {postID, comment}
+        let updatedPosts = state.posts.map(
+            p => (p.id === action.payload.postID)
+                ? {
+                    ...p,
+                    comments: [...p.comments, newComment]
+                }
+                : p);
+        return { posts: updatedPosts };
     }
-    else if(action.type === DELETE_COMMENT){
-        return {};
+
+    else if (action.type === DELETE_COMMENT) {
+        // payload: {postID, commentID}
+        let updatedPosts = state.posts.map(
+            p => p.id === action.payload.postID
+                ? {
+                    ...p,
+                    comments:
+                        p.comments.filter(
+                            c => c.id !== action.payload.commentID)
+                }
+                : p)
+        return { posts: updatedPosts };
     }
-    else if(action.type === UPDATE_COMMENT){
-        return {};
-    }
-    else if(action.type === GET_ALL_POSTS){
-        return {};
-    }
-    else{
+
+    else {
         return state;
     }
-    
+
 
 }

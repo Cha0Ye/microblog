@@ -1,84 +1,82 @@
 import React, { Component } from "react";
-// import { BrowserRouter } from 'react-router-dom';
 import { NavLink, Route, Switch } from "react-router-dom";
-import PostList from "./PostList";
+import HomePage from "./HomePage";
 import NewPostForm from "./NewPostForm";
 import "./App.css";
 import Post from "./Post";
-import uuid from "uuid/v4";
+
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { posts: [] };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { posts: [] };
 
-    this.addPost = this.addPost.bind(this);
-    this.editPost = this.editPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.addComment = this.addComment.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
-  }
+  //   this.addPost = this.addPost.bind(this);
+  //   this.editPost = this.editPost.bind(this);
+  //   this.deletePost = this.deletePost.bind(this);
+  //   this.addComment = this.addComment.bind(this);
+  //   this.deleteComment = this.deleteComment.bind(this);
+  // }
 
-  deletePost(id) {
-    const posts = this.state.posts.filter(p => id !== p.id);
-    this.setState({
-        posts: posts
-    });
-  }
+  // deletePost(id) {
+  //   const posts = this.state.posts.filter(p => id !== p.id);
+  //   this.setState({
+  //       posts: posts
+  //   });
+  // }
 
-  editPost(newPost, id) {
-    const idx = this.state.posts.findIndex(p => p.id === id);
+  // editPost(newPost, id) {
+  //   const idx = this.state.posts.findIndex(p => p.id === id);
 
-    newPost.id = id;
+  //   newPost.id = id;
 
-    const newPosts = [...this.state.posts.slice(0,idx), newPost, ...this.state.posts.slice(idx+1)];
+  //   const newPosts = [...this.state.posts.slice(0,idx), newPost, ...this.state.posts.slice(idx+1)];
 
-    this.setState({
-      posts: newPosts
-   });
-  }
+  //   this.setState({
+  //     posts: newPosts
+  //  });
+  // }
 
-  addPost(post) {
-    const id = uuid();
-    post.id = id;
-    post.comments = [];
-    this.setState(st => ({
-      posts: [...st.posts, post]
-    }));
-  }
+  // addPost(post) {
+  //   const id = uuid();
+  //   post.id = id;
+  //   post.comments = [];
+  //   this.setState(st => ({
+  //     posts: [...st.posts, post]
+  //   }));
+  // }
 
-  addComment(postId, newComment) {
-    console.log('new comment is', newComment);
-    console.log('ID is ', postId);
+  // addComment(postId, newComment) {
+  //   console.log('new comment is', newComment);
+  //   console.log('ID is ', postId);
 
-    const commentID = uuid();
-    newComment.id = commentID;
+  //   const commentID = uuid();
+  //   newComment.id = commentID;
 
-    let newPosts = this.state.posts.map(p => (p.id === postId)
-      ? 
-        {...p, comments: [...p.comments, newComment] }
-      : 
-      p );
-    this.setState({
-          posts: newPosts
-    });
+  //   let newPosts = this.state.posts.map(
+  //     p => (p.id === postId)
+  //     ? {...p, comments: [...p.comments, newComment] }
+  //     : p );
+  //   this.setState({
+  //         posts: newPosts
+  //   });
 
-  }
+  // }
 
-  deleteComment(postId, commentId){
+  // deleteComment(postId, commentId){
     
-    const updatedPosts = this.state.posts.map(
-        post => post.id === postId 
-                ? { ...post, 
-                    comments: post.comments.filter(c => c.id !== commentId)} 
-                : post) 
+  //   const updatedPosts = this.state.posts.map(
+  //       post => post.id === postId 
+  //               ? { ...post, 
+  //                   comments: post.comments.filter(c => c.id !== commentId)} 
+  //               : post) 
 
-    this.setState({ posts: updatedPosts });
+  //   this.setState({ posts: updatedPosts });
 
-  }
+  // }
 
   render() {
-    console.log('new state is ', this.state)
+
     return (
       <div className="App">
         <nav>
@@ -92,33 +90,31 @@ class App extends Component {
             exact
             path="/"
             render={rtProps => (
-              <PostList {...rtProps} 
-                posts={this.state.posts} />
+              <HomePage />
             )}
           />
           <Route
             exact
             path="/new"
-            render={rtProps => (
+            render={rtProps =>
               <NewPostForm 
                 {...rtProps} 
                 triggerAddPost={this.addPost}
-                 />
-            )}
+              />}
           />
           <Route
             exact
             path="/:id"
             render={rtProps => 
               <Post 
-                  post={this.state.posts.find(
-                       p =>(p.id === rtProps.match.params.id))}
+                  id={rtProps.match.params.id}
                   {...rtProps} 
                   rtProps={rtProps}
                   deletePost={this.deletePost}
                   editPost={this.editPost}
                   triggerAddComment={this.addComment}
-                  triggerDeleteComment={this.deleteComment} />}
+                  triggerDeleteComment={this.deleteComment} 
+              />}
           />
         </Switch>
       </div>

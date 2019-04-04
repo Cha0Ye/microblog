@@ -3,7 +3,7 @@ import { ADD_NEW_POST,
          UPDATE_POST,
          ADD_NEW_COMMENT,
          DELETE_COMMENT,
-         GET_ALL_POSTS } from './actionTypes';
+        } from './actionTypes';
 
 
 export function addNewPost(newPost){
@@ -20,23 +20,19 @@ export function deletePost(postID){
 
 export function updatePost(postID, updatedPost){
     return { type: UPDATE_POST,
-             payload: { postID, updatePost }
+             payload: { postID, updatedPost }
     };
 }
 
-export function addNewComment(comment){
+export function addNewComment(postID, comment){
     return { type: ADD_NEW_COMMENT, 
-             payload: comment
+             payload: {postID, comment}
     };
 }
 
-export function deleteComment(commentID){
+export function deleteComment(postID, commentID){
     return { type: DELETE_COMMENT, 
-             payload: commentID
+             payload: {postID, commentID}
     };
-}
-
-export function getAllPosts(){
-    return { type: GET_ALL_POSTS };
 }
 
