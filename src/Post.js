@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import EditPostForm from './EditPostForm';
 import Comments from './Comments';
+import { connect } from 'react-redux';
+import { addNewPost,
+         deletePost,
+         updatePost,
+         addNewComment,
+         deleteComment,
+         updateComment,
+         getAllPosts } from './actions';
 
 class Post extends Component {
 
@@ -71,4 +79,19 @@ class Post extends Component {
     }
 }
 
-export default Post;
+function mapStateToProps(state){
+    return { posts: state.posts };
+}
+
+const mapDispatchToProps = {
+    addNewPost,
+    deletePost,
+    updatePost,
+    addNewComment,
+    deleteComment,
+    updateComment,
+    getAllPosts
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
