@@ -48,17 +48,20 @@ class Post extends Component {
                             <p>{body}</p>
                             <button onClick={this.handleEditShow}>Edit</button>
                             <button onClick={this.handleDelete}>Delete</button>
+                            <Comments postId={id}/>
                         </div>
             )
         } else {
-            display = (<EditPostForm 
-                            setIsEditingFalse={this.handleEditCancel}
-                            triggerUpdatePost={this.props.editPost}
-                            postData={ this.props.post }
-                            />)
+            display = (<>
+                            <EditPostForm 
+                                setIsEditingFalse={this.handleEditCancel}
+                                triggerUpdatePost={this.props.editPost}
+                                postData={ this.props.post }
+                                />
+                            <Comments postId={id}/>
+                        </>)
         }
 
-        display = display + <Comments />;
         return display;
     }
 }

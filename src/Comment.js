@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Comment extends Component {
     render() {
-        const { message} =  this.props;
+        const {message} =  this.props;
         return (
             <div>
                 <button>X</button>

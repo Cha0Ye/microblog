@@ -15,6 +15,7 @@ class App extends Component {
     this.addPost = this.addPost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.addComment = this.addComment.bind(this);
   }
 
   deletePost(id) {
@@ -42,6 +43,33 @@ class App extends Component {
     this.setState(st => ({
       posts: [...st.posts, post]
     }));
+  }
+
+  addComment(postId, newComment) {
+    const commentID = uuid();
+    newComment.id = commentID;
+
+    //find the post
+    const currentPost = this.state.posts.find(p => p.id === postId)
+
+    //add the new comment in the post
+    //FIXME: incase undefined is an issue, we need to add anempty array here
+    currentPost.comments = [...currentPost.comments, newComment]
+
+    //find the index of the post
+    const currentPostIdx = this.state.posts.findIndex(p => p.id === postId)
+
+    //create new post
+    const newPosts = [...this.state.posts.slice(0,currentPostIdx), currentPost, ...this.state.posts.slice(currentPostIdx+1)]
+
+    //MAP over and see if it is a match, then return p 
+
+    this.setState(st => (
+      {
+          posts: newPosts
+      }
+    ))
+
   }
 
   render() {

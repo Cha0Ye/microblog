@@ -12,12 +12,16 @@ class NewCommentForm extends Component {
 
     handleSubmit(evt){
         evt.preventDefault();
-        this.props.triggerAddComment(this.state);
-        this.setState({ comment: '' });
+        this.props.triggerAddComment(this.props.postId, this.state);
+        this.setState({ 
+                    comment: '' 
+        });
     }
 
     handleChange(evt){
-        this.setState({ [evt.target.name]: evt.target.value });
+        this.setState({ 
+            [evt.target.name]: evt.target.value 
+        });
     }
     
     render() {
@@ -25,10 +29,13 @@ class NewCommentForm extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                  <input id='comment' name='comment' value={this.state.comment} onChange={this.handleChange}/>
+                  <input id='comment' 
+                         name='comment' 
+                         value={this.state.comment} 
+                         onChange={this.handleChange}
+                         />
                   <button>Add</button>
                 </form>
-                
             </div>
         );
     }
