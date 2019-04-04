@@ -26,7 +26,7 @@ class App extends Component {
     });
   }
 
-  editPost(id, newPost) {
+  editPost(newPost, id) {
     const idx = this.state.posts.findIndex(p => p.id === id);
 
     newPost.id = id;
@@ -68,10 +68,13 @@ class App extends Component {
   deleteComment(postId, commentId){
     
     const updatedPosts = this.state.posts.map(
-                    post => post.id === postId ? {...post, comments: post.comments.filter(c => c.id !== commentId)} : post) 
+        post => post.id === postId 
+                ? { ...post, 
+                    comments: post.comments.filter(c => c.id !== commentId)} 
+                : post) 
 
     this.setState({ posts: updatedPosts });
-    
+
   }
 
   render() {
@@ -89,27 +92,33 @@ class App extends Component {
             exact
             path="/"
             render={rtProps => (
-              <PostList {...rtProps} posts={this.state.posts} />
+              <PostList {...rtProps} 
+                posts={this.state.posts} />
             )}
           />
           <Route
             exact
             path="/new"
             render={rtProps => (
-              <NewPostForm {...rtProps} triggerAddPost={this.addPost} />
+              <NewPostForm 
+                {...rtProps} 
+                triggerAddPost={this.addPost}
+                 />
             )}
           />
           <Route
             exact
             path="/:id"
-            render={rtProps => <Post 
-                                      post={this.state.posts.find(p =>(p.id === rtProps.match.params.id))}
-                                      {...rtProps} 
-                                      deletePost={this.deletePost}
-                                      editPost={this.editPost}
-                                      triggerAddComment={this.addComment}
-                                      triggerDeleteComment={this.deleteComment}
-                                      />}
+            render={rtProps => 
+              <Post 
+                  post={this.state.posts.find(
+                       p =>(p.id === rtProps.match.params.id))}
+                  {...rtProps} 
+                  rtProps={rtProps}
+                  deletePost={this.deletePost}
+                  editPost={this.editPost}
+                  triggerAddComment={this.addComment}
+                  triggerDeleteComment={this.deleteComment} />}
           />
         </Switch>
       </div>

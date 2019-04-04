@@ -16,7 +16,7 @@ class Post extends Component {
     
     handleDelete() {
         // call this.props.deletePost
-        this.props.deletePost(this.props.match.params.id);
+        this.props.deletePost(this.props.post.id);
         // then redirect to homepage
         this.props.history.push('/');
     }
@@ -34,39 +34,37 @@ class Post extends Component {
     }
 
     render() {
-        
         let display;
-        
         const {title, description, body, id, comments } = this.props.post;
-    
-        if (this.state.isEditing === false) {
-                console.log('posts are ', this.props.post);  
-            display = (
-                        <div>
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                            <p>{body}</p>
-                            <button onClick={this.handleEditShow}>Edit</button>
-                            <button onClick={this.handleDelete}>Delete</button>
-                            <Comments postId={id} 
-                                      comments={comments} 
-                                      triggerAddComment={this.props.triggerAddComment} 
-                                      triggerDeleteComment={this.props.triggerDeleteComment}/>
-                        </div>
+        const commentComponent = (
+            <Comments postId={id} 
+                comments={comments} 
+                triggerAddComment={this.props.triggerAddComment} 
+                triggerDeleteComment={this.props.triggerDeleteComment}/> 
             )
+
+        if (this.state.isEditing === false) {
+            display = 
+            (<div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <p>{body}</p>
+                <button onClick={this.handleEditShow}>Edit</button>
+                <button onClick={this.handleDelete}>Delete</button>
+                {commentComponent}
+             </div>)
         } else {
-            display = (<>
-                            <EditPostForm 
-                                setIsEditingFalse={this.handleEditCancel}
-                                triggerUpdatePost={this.props.editPost}
-                                postData={ this.props.post }
-                                comments={comments}
-                                />
-                            <Comments postId={id} 
-                                      comments={comments} 
-                                      triggerAddComment={this.props.triggerAddComment} 
-                                      triggerDeleteComment={this.props.triggerDeleteComment}/>
-                        </>)
+            display = 
+            (<>
+                <EditPostForm 
+                    setIsEditingFalse={this.handleEditCancel}
+                    triggerUpdatePost={this.props.editPost}
+                    postData={ this.props.post }
+                    comments={comments}
+                    rtProps={this.props.rtProps}
+                    />
+                {commentComponent}
+             </>)
         }
 
         return display;
