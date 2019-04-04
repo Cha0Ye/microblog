@@ -22,7 +22,8 @@ class EditPostForm extends Component {
     
     handleSubmit(evt) {
         evt.preventDefault();
-        this.props.triggerUpdatePost(this.props.postData.id, this.state);
+        const newEditPost = { ...this.state, comments: this.props.comments}
+        this.props.triggerUpdatePost(this.props.postData.id, newEditPost);
         this.setState({
             title: "",
             description: "",

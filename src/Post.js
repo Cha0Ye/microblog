@@ -34,13 +34,13 @@ class Post extends Component {
     }
 
     render() {
-
+        
         let display;
         
         const {title, description, body, id, comments } = this.props.post;
     
         if (this.state.isEditing === false) {
-                
+                console.log('posts are ', this.props.post);  
             display = (
                         <div>
                             <h3>{title}</h3>
@@ -48,7 +48,10 @@ class Post extends Component {
                             <p>{body}</p>
                             <button onClick={this.handleEditShow}>Edit</button>
                             <button onClick={this.handleDelete}>Delete</button>
-                            <Comments postId={id} comments={comments} triggerAddComment={this.props.triggerAddComment} />
+                            <Comments postId={id} 
+                                      comments={comments} 
+                                      triggerAddComment={this.props.triggerAddComment} 
+                                      triggerDeleteComment={this.props.triggerDeleteComment}/>
                         </div>
             )
         } else {
@@ -57,8 +60,12 @@ class Post extends Component {
                                 setIsEditingFalse={this.handleEditCancel}
                                 triggerUpdatePost={this.props.editPost}
                                 postData={ this.props.post }
+                                comments={comments}
                                 />
-                            <Comments postId={id} comments={comments} triggerAddComment={this.props.triggerAddComment} />
+                            <Comments postId={id} 
+                                      comments={comments} 
+                                      triggerAddComment={this.props.triggerAddComment} 
+                                      triggerDeleteComment={this.props.triggerDeleteComment}/>
                         </>)
         }
 

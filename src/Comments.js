@@ -26,7 +26,9 @@ class Comments extends Component {
             <Comment 
                   message={cmt.comment} 
                   key={cmt.id} 
-                  id={cmt.id} />
+                  id={cmt.id} 
+                  triggerDeleteComment={this.props.triggerDeleteComment}
+                  postId={this.props.postId}/>
         ));
     return <div>
              {comments}
