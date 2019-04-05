@@ -6,6 +6,7 @@ import {
     UPDATE_POST,
     ADD_NEW_COMMENT,
     DELETE_COMMENT,
+    LOAD_POSTS
 } from './actionTypes';
 
 const INITIAL_STATE = {
@@ -67,6 +68,12 @@ export default function rootReducer(state = INITIAL_STATE, action) {
                 }
                 : p)
         return { posts: updatedPosts };
+    }
+
+    else if(action.type === LOAD_POSTS) {
+        console.log('in rootreducer posts is', action)
+        console.log('state is ', state)
+        return { posts: action.payload}
     }
 
     else {
