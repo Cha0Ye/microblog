@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import uuid from "uuid/v4";
 import Comment from "./Comment";
 import NewCommentForm from '../Containers/NewCommentForm';
 
 class Comments extends Component {
 
   render() {
+    console.log("THESE ARE OUR COMMENTs.js PROPSSS", this.props.comments)
 
     const comments = this.props.comments.map(cmt => (
             <Comment 
-                  message={cmt.comment} 
+                  message={cmt.text} 
                   key={cmt.id} 
                   id={cmt.id} 
                   triggerDeleteComment={this.props.triggerDeleteComment}

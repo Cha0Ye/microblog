@@ -6,7 +6,8 @@ import { addNewPost,
          deletePost,
          updatePost,
          addNewComment,
-         deleteComment
+         deleteComment,
+         getAllPostFromAPI
          } from '../actions';
 
 class Post extends Component {
@@ -40,53 +41,68 @@ class Post extends Component {
         });
     }
 
+    componentDidMount() {
+        // ADD thunked dispatch prop here:
+        this.props.getAllPostFromAPI(this.props.id);
+    }
+
     render() {
-        let display;
 
-        const {title, 
-               description, 
-               body, 
-               id, 
-               comments } = this.props.post;
+        if (this.props.post === undefined) {
 
-        const commentComponent = (
-            <Comments 
-              postId={id} 
-              comments={comments} 
-              triggerAddComment={this.props.addNewComment} 
-              triggerDeleteComment={this.props.deleteComment}/> 
-            )
-
-        if (this.state.isEditing === false) {
-            display = 
-            (<div>
-                <h3>{title}</h3>
-                <p>{description}</p>
-                <p>{body}</p>
-                <button onClick={this.handleEditShow}>Edit</button>
-                <button onClick={this.handleDelete}>Delete</button>
-                {commentComponent}
-             </div>)
+            return <div>HIII I'm loading</div>
 
         } else {
-            display = 
-            (<>
-                <EditPostForm 
-                    setIsEditingFalse={this.handleEditCancel}
-                    triggerUpdatePost={this.props.updatePost}
-                    postData={ this.props.post }
-                    />
-                {commentComponent}
-             </>)
-        }
 
-        return display;
+            let display;
+            console.log("THIS IS FROM OUR Post.js RENDER", this.props )
+            const { title, 
+                   description, 
+                   body, 
+                   id, 
+                   comments } = this.props.post;
+
+            console.log("THESE ARE OUR COMMENTS", comments)
+    
+            const commentComponent = (
+                <Comments 
+                  postId={id} 
+                  comments={comments} 
+                  triggerAddComment={this.props.addNewComment} 
+                  triggerDeleteComment={this.props.deleteComment}/> 
+                )
+    
+            if (this.state.isEditing === false) {
+                display = 
+                (<div>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                    <p>{body}</p>
+                    <button onClick={this.handleEditShow}>Edit</button>
+                    <button onClick={this.handleDelete}>Delete</button>
+                    {commentComponent}
+                 </div>)
+    
+            } else {
+                display = 
+                (<>
+                    <EditPostForm 
+                        setIsEditingFalse={this.handleEditCancel}
+                        triggerUpdatePost={this.props.updatePost}
+                        postData={ this.props.post }
+                        />
+                    {commentComponent}
+                 </>)
+            }
+    
+            return display;
+        }
     }
 }
 
 function mapStateToProps(state, ownProps){
-    const post = state.posts.find(p => ownProps.id == p.id)
-    return { post };
+    // const post = state.posts.find(p => ownProps.id == p.id)
+    return { post: state.post };
 }
 
 const mapDispatchToProps = {
@@ -95,6 +111,7 @@ const mapDispatchToProps = {
     updatePost,
     addNewComment,
     deleteComment,
+    getAllPostFromAPI
 };
 
 

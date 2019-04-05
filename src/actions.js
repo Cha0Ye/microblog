@@ -5,7 +5,7 @@ import { ADD_NEW_POST,
          ADD_NEW_COMMENT,
          DELETE_COMMENT,
          LOAD_POSTS,
-         GET_ALL_POSTS
+         LOAD_POST
         } from './actionTypes';
 
 
@@ -42,17 +42,30 @@ export function deleteComment(postID, commentID){
 export function getAllPostsFromAPI() {
     return async function(dispatch){
         const res = await axios.get('http://localhost:5000/api/posts'); 
-        const posts  = res.data;
-        console.log('post from action is ', posts);
+        const posts = res.data;
         dispatch(gotPosts(posts));
     }
-    //return { type:  GET_ALL_POSTS };
 }
 
 export function gotPosts(posts){
-    console.log('in gotPosts', posts)
     return { type: LOAD_POSTS, 
-             payload: posts
+        payload: posts
+    };
+}
+
+export function getAllPostFromAPI(postID) {
+    return async function(dispatch){
+        console.log("HELLO FROM THE GETALLPOSTFROMAPI function")
+        const res = await axios.get(`http://localhost:5000/api/posts/${postID}`); 
+        const post = res.data;
+        console.log("THIS IS WHAT THE RESULT LOOKS LIKE", res)
+        dispatch(gotPost(post));
+    }
+}
+
+export function gotPost(post){
+    return { type: LOAD_POST, 
+             payload: post
     };
 }
 

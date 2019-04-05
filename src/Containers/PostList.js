@@ -38,4 +38,4 @@ function mapStateToProps(state){
 
 
 
-export default connect(mapStateToProps, {getAllPostsFromAPI})(PostList);
+export default connect(mapStateToProps, {getAllPostsFromAPI} )(PostList);
