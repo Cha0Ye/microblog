@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addNewComment } from '../actions';
+
 
 class NewCommentForm extends Component {
     constructor(props){
@@ -12,7 +15,7 @@ class NewCommentForm extends Component {
 
     handleSubmit(evt){
         evt.preventDefault();
-        this.props.triggerAddComment(this.props.postId, this.state);
+        this.props.addNewComment(this.props.postId, this.state);
         this.setState({ 
             comment: '' 
         });
@@ -41,4 +44,14 @@ class NewCommentForm extends Component {
     }
 }
 
-export default NewCommentForm;
+function mapStateToProps(state, ownProps){
+    return {};
+}
+
+const mapDispatchToProps = {
+   addNewComment
+};
+
+export default connect(
+        mapStateToProps, 
+        mapDispatchToProps)(NewCommentForm);

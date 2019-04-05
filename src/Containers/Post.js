@@ -85,9 +85,7 @@ class Post extends Component {
 }
 
 function mapStateToProps(state, ownProps){
-    console.log('OWNNNPROPSSS', ownProps, "STATE.POSTSSS", state.posts)
     const post = state.posts.find(p => ownProps.id == p.id)
-    console.log('POSTTTTTTT', post)
     return { post };
 }
 

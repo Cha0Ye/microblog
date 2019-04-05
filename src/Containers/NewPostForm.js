@@ -3,6 +3,7 @@ import PostForm from '../Components/PostForm';
 import { connect } from 'react-redux';
 import { addNewPost } from '../actions';
 
+/** Component to display form to capture a new post */
 class NewPostForm extends Component {
 
     constructor(props) {
@@ -12,16 +13,20 @@ class NewPostForm extends Component {
     }
 
     handleCancel() {
+        // Upon cancel button being clicked, redirect to home
         this.props.history.push('/');
     }
     
     handleSubmit(post) {
-   
+        // Upon submit button being clicked, add a new post
+        // Then redirect to home page.
         this.props.addNewPost(post)
         this.props.history.push('/');
     }
     
     render() {
+
+        // New post form should start with a blank state
         const post = {
             title: "",
             description: "",
@@ -38,9 +43,11 @@ class NewPostForm extends Component {
         );
     }
 }
+
 function mapStateToProps(state, ownProps){
     return {};
 }
+
 const mapDispatchToProps = {
     addNewPost
 };
