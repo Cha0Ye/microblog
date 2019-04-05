@@ -42,11 +42,13 @@ class Post extends Component {
 
     render() {
         let display;
+
         const {title, 
                description, 
                body, 
                id, 
                comments } = this.props.post;
+
         const commentComponent = (
             <Comments 
               postId={id} 
@@ -65,6 +67,7 @@ class Post extends Component {
                 <button onClick={this.handleDelete}>Delete</button>
                 {commentComponent}
              </div>)
+
         } else {
             display = 
             (<>
@@ -82,8 +85,9 @@ class Post extends Component {
 }
 
 function mapStateToProps(state, ownProps){
-    console.log('OMG HERE IS OUR POST DATA', ownProps, state.posts)
+    console.log('OWNNNPROPSSS', ownProps, "STATE.POSTSSS", state.posts)
     const post = state.posts.find(p => ownProps.id == p.id)
+    console.log('POSTTTTTTT', post)
     return { post };
 }
 

@@ -9,15 +9,7 @@ import {
 } from './actionTypes';
 
 const INITIAL_STATE = {
-    posts: [
-        {
-            id: 17, 
-            title: "Yo",
-            description: "d", 
-            body: "bo", 
-            comments: []
-        }
-    ],
+    posts: []
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
@@ -37,12 +29,15 @@ export default function rootReducer(state = INITIAL_STATE, action) {
     else if (action.type === UPDATE_POST) {
         // payload: { postID, updatePost }
         console.log('In root reducer update post',  action.payload, state.posts)
+
         const updatedPosts = state.posts.map(
             p => p.id === action.payload.postID
-                ? p = action.payload.updatedPost
+                ? p = {...action.payload.updatedPost, id: p.id}
                 : p
         );
+
         console.log('updated post is', updatedPosts)
+
         return { posts: updatedPosts };
     }
 
