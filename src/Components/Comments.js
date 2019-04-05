@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import uuid from "uuid/v4";
 import Comment from "./Comment";
-import NewCommentForm from './NewCommentForm';
+import NewCommentForm from '../Containers/NewCommentForm';
 
 class Comments extends Component {
 

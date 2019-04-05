@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import EditPostForm from './EditPostForm';
-import Comments from './Comments';
+import Comments from '../Components/Comments';
 import { connect } from 'react-redux';
 import { addNewPost,
          deletePost,
          updatePost,
          addNewComment,
          deleteComment
-         } from './actions';
+         } from '../actions';
 
 class Post extends Component {
 

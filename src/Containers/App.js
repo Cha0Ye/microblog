@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
-import HomePage from "./HomePage";
+import HomePage from "../Components/HomePage";
 import NewPostForm from "./NewPostForm";
 import "./App.css";
 import Post from "./Post";
