@@ -24,6 +24,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
 
     if (action.type === ADD_NEW_POST) {
         let newPost = action.payload;
+        newPost.comments =[];
         newPost.id = uuid();
         return { posts: [...state.posts, newPost] };
     }
@@ -35,11 +36,13 @@ export default function rootReducer(state = INITIAL_STATE, action) {
 
     else if (action.type === UPDATE_POST) {
         // payload: { postID, updatePost }
+        console.log('In root reducer update post',  action.payload, state.posts)
         const updatedPosts = state.posts.map(
             p => p.id === action.payload.postID
-                ? p = action.payload.updatePost
+                ? p = action.payload.updatedPost
                 : p
         );
+        console.log('updated post is', updatedPosts)
         return { posts: updatedPosts };
     }
 

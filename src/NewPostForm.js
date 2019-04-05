@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PostForm from './PostForm';
+import { connect } from 'react-redux';
+import { addNewPost} from './actions';
 
 class NewPostForm extends Component {
 
@@ -14,8 +16,8 @@ class NewPostForm extends Component {
     }
     
     handleSubmit(post) {
-        console.log(this.props)
-        this.props.triggerAddPost(post)
+   
+        this.props.addNewPost(post)
         this.props.history.push('/');
     }
     
@@ -36,5 +38,11 @@ class NewPostForm extends Component {
         );
     }
 }
+function mapStateToProps(state, ownProps){
+    return {};
+}
+const mapDispatchToProps = {
+    addNewPost
+};
 
-export default NewPostForm;
+export default connect(mapStateToProps, mapDispatchToProps)(NewPostForm);

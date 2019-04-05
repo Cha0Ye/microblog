@@ -6,8 +6,8 @@ import { addNewPost,
          deletePost,
          updatePost,
          addNewComment,
-         deleteComment,
-         getAllPosts } from './actions';
+         deleteComment
+         } from './actions';
 
 class Post extends Component {
 
@@ -82,6 +82,7 @@ class Post extends Component {
 }
 
 function mapStateToProps(state, ownProps){
+    console.log('OMG HERE IS OUR POST DATA', ownProps, state.posts)
     const post = state.posts.find(p => ownProps.id == p.id)
     return { post };
 }

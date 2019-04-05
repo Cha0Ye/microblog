@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import PostList from './PostList';
+import { connect } from 'react-redux';
+
 
 class HomePage extends Component {
     render() {
         return (
             <div>
                 <p>Marketing fluff. Fluffy fluff, so fluffy. Fluffity fluff fluff. Marketing.</p>
-                <PostList />
+                <PostList posts={this.props.posts}/>
             </div>
         );
     }
 }
 
-export default HomePage;
+function mapStateToProps(state){
+    return { posts: state.posts };
+}
+
+
+
+export default connect(mapStateToProps)(HomePage);

@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import PostForm from './PostForm';
+import { connect } from 'react-redux';
+import { addNewPost,
+         deletePost,
+         updatePost,
+         addNewComment,
+         deleteComment
+         } from './actions';
 
 class EditPostForm extends Component {
 
@@ -14,7 +21,7 @@ class EditPostForm extends Component {
     }
 
     handleSubmit(post, id) {
-        this.props.triggerUpdatePost(post, id)
+        this.props.updatePost(id, post)
         this.props.setIsEditingFalse()
     }
 
@@ -29,5 +36,17 @@ class EditPostForm extends Component {
         );
     }
 }
+function mapStateToProps(state, ownProps){
+    const post = state.posts.find(p => ownProps.id == p.id)
+    return { post };
+}
 
-export default EditPostForm;
+const mapDispatchToProps = {
+    addNewPost,
+    deletePost,
+    updatePost,
+    addNewComment,
+    deleteComment,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPostForm);
