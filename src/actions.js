@@ -68,4 +68,19 @@ export function gotPost(post){
              payload: post
     };
 }
+//I'm heeeeere
+export function deleteCommentAPI(postID, commentID) {
+    return async function(dispatch){
+        
+        const res = await axios.delete(`http://localhost:5000/api/posts/${postID}/comments/${commentID}`); 
+        const msg = res.data;
+        dispatch(delComment(postID, commentID));
+    }
+}
+
+export function delComment(postID, commentID){
+    return { type: DELETE_COMMENT, 
+             payload: {postID, commentID}
+    };
+}
 

@@ -7,7 +7,8 @@ import { addNewPost,
          updatePost,
          addNewComment,
          deleteComment,
-         getAllPostFromAPI
+         getAllPostFromAPI, 
+         deleteCommentAPI
          } from '../actions';
 
 class Post extends Component {
@@ -69,7 +70,7 @@ class Post extends Component {
                   postId={id} 
                   comments={comments} 
                   triggerAddComment={this.props.addNewComment} 
-                  triggerDeleteComment={this.props.deleteComment}/> 
+                  triggerDeleteComment={this.props.deleteCommentAPI}/> 
                 )
     
             if (this.state.isEditing === false) {
@@ -111,7 +112,8 @@ const mapDispatchToProps = {
     updatePost,
     addNewComment,
     deleteComment,
-    getAllPostFromAPI
+    getAllPostFromAPI,
+    deleteCommentAPI
 };
 
 

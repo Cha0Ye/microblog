@@ -59,6 +59,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
 
     else if (action.type === DELETE_COMMENT) {
         // payload: {postID, commentID}
+        debugger
         let updatedPosts = state.posts.map(
             p => p.id === action.payload.postID
                 ? {
@@ -68,16 +69,16 @@ export default function rootReducer(state = INITIAL_STATE, action) {
                             c => c.id !== action.payload.commentID)
                 }
                 : p)
-        return { posts: updatedPosts };
+        return { ...state, posts: updatedPosts };
     }
 
     else if (action.type === LOAD_POSTS) {
-        return { posts: action.payload}
+        return { ...state, posts: action.payload}
     }
 
     else if (action.type === LOAD_POST) {
         console.log("HELLO FROM THE ROOTREDUCER FOR LOAD_POST")
-        return { post: action.payload }
+        return { ...state, post: action.payload }
     }
 
     else {
